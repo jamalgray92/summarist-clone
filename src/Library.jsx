@@ -30,6 +30,12 @@ function Library({
                 <h3>{book.title}</h3>
                 <p>{book.author}</p>
                 <span>{book.category}</span>
+
+                {book.isPremium && (
+                  <div className="book__premium-badge">
+                    Premium
+                  </div>
+                )}
               </Link>
 
               <button

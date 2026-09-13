@@ -1,15 +1,6 @@
-import {
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Premium() {
-  const navigate = useNavigate();
-
-  function activatePremium() {
-    localStorage.setItem("premium", "true");
-    navigate("/for-you");
-  }
 
   return (
     <main className="premium-page">
@@ -61,14 +52,12 @@ function Premium() {
               <li>Save books to your library</li>
               <li>Save highlights and notes</li>
             </ul>
-
-            <button
-              type="button"
+            <a
+              href="https://buy.stripe.com/test_3cIcN4gAHcOd2mVejZ9bO00"
               className="premium-plan__button"
-              onClick={activatePremium}
             >
               Start Premium
-            </button>
+            </a>
           </div>
 
           <div className="premium-plan">
@@ -91,13 +80,12 @@ function Premium() {
               <li>Save highlights and notes</li>
             </ul>
 
-            <button
-              type="button"
-              className="premium-plan__button"
-              onClick={activatePremium}
-            >
-              Choose Monthly
-            </button>
+           <a
+             href="https://buy.stripe.com/test_00w3cu707cOd1iRgs79bO01"
+            className="premium-plan__button"
+          >
+            Choose Monthly
+          </a>
           </div>
         </div>
       </div>

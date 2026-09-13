@@ -63,7 +63,14 @@ function Sidebar({ onLogout }) {
             >
               Search
             </NavLink>
-          </nav>
+            <NavLink
+              to="/settings"
+              className={getLinkClass}
+              onClick={closeMenu}
+            >
+             Settings
+            </NavLink>
+            </nav>
         </div>
 
         <button

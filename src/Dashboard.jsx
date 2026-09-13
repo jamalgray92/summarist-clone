@@ -9,6 +9,8 @@ import BookDetails from "./BookDetails";
 import ReadBook from "./ReadBook";
 import ListenBook from "./ListenBook";
 import Premium from "./Premium";
+import Settings from "./Settings";
+import PaymentSuccess from "./PaymentSuccess";
 function Dashboard({ user, onLogout }) {
     const [savedBooks, setSavedBooks] = useState(() => {
         const storedBooks = localStorage.getItem("savedBooks");
@@ -98,6 +100,14 @@ function Dashboard({ user, onLogout }) {
 <Route
   path="/premium"
   element={<Premium />}
+/>
+<Route
+  path="/settings"
+  element={<Settings user={user} />}
+/>
+<Route
+  path="/payment-success"
+  element={<PaymentSuccess />}
 />
 
   <Route

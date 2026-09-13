@@ -15,6 +15,7 @@ import Login from "./Login";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./Firebase";
 import Dashboard from "./Dashboard";
+import PaymentSuccess from "./PaymentSuccess";
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [user, setUser] = useState(null);
@@ -26,6 +27,10 @@ useEffect(() => {
 
   return () => unsubscribe();
 }, []);
+
+if (window.location.pathname.endsWith("/payment-success")) {
+  return <PaymentSuccess />;
+}
 
 if (user) {
   return (
