@@ -32,6 +32,9 @@ function BookDetails({
     (savedBook) => savedBook.id === book.id
   );
 
+  const isPremiumUser =
+    localStorage.getItem("premium") === "true";
+
   function saveHighlight() {
     if (!highlightText.trim()) {
       setMessage("Enter a highlight first.");
@@ -91,6 +94,12 @@ function BookDetails({
             {book.category}
           </span>
 
+          {book.isPremium && (
+            <div className="premium__badge">
+              Premium
+            </div>
+          )}
+
           <h1>{book.title}</h1>
 
           <h3>{book.author}</h3>
@@ -107,6 +116,41 @@ function BookDetails({
               ? "Remove from Library"
               : "Save to Library"}
           </button>
+
+          {book.isPremium && !isPremiumUser ? (
+            <div className="premium__locked">
+              <div className="premium__badge">
+                Premium
+              </div>
+
+              <p className="premium__message">
+                Unlock this summary with Summarist Premium.
+              </p>
+
+              <Link
+                to="/premium"
+                className="premium__button"
+              >
+                Upgrade to Premium
+              </Link>
+            </div>
+          ) : (
+            <div className="book__actions">
+              <Link
+                to={`/book/${book.id}/read`}
+                className="book__read"
+              >
+                Read
+              </Link>
+
+              <Link
+                to={`/book/${book.id}/listen`}
+                className="book__listen"
+              >
+                Listen
+              </Link>
+            </div>
+          )}
 
           <div className="highlight-form">
             <h2>Add Highlight</h2>

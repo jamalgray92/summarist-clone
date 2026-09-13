@@ -6,6 +6,9 @@ import Library from "./Library";
 import Highlights from "./Highlights";
 import Search from "./Search";
 import BookDetails from "./BookDetails";
+import ReadBook from "./ReadBook";
+import ListenBook from "./ListenBook";
+import Premium from "./Premium";
 function Dashboard({ user, onLogout }) {
     const [savedBooks, setSavedBooks] = useState(() => {
         const storedBooks = localStorage.getItem("savedBooks");
@@ -83,11 +86,25 @@ function Dashboard({ user, onLogout }) {
   }
 />
 
+<Route
+  path="/book/:id/read"
+  element={<ReadBook />}
+/>
+
+<Route
+  path="/book/:id/listen"
+  element={<ListenBook />}
+/>
+<Route
+  path="/premium"
+  element={<Premium />}
+/>
+
   <Route
     path="*"
     element={<Navigate to="/for-you" replace />}
   />
-</Routes>
+                </Routes>
  
             </div>
         </div>

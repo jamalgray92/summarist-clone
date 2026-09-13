@@ -26,6 +26,7 @@ useEffect(() => {
 
   return () => unsubscribe();
 }, []);
+
 if (user) {
   return (
     <Dashboard

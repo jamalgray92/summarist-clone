@@ -4,6 +4,7 @@ export const books = [
     title: "Atomic Habits",
     author: "James Clear",
     category: "Self Improvement",
+    isPremium: false,
     image:
       "https://covers.openlibrary.org/b/isbn/9780735211292-L.jpg",
     description:
@@ -14,6 +15,7 @@ export const books = [
     title: "The Psychology of Money",
     author: "Morgan Housel",
     category: "Finance",
+    isPremium: false,
     image:
       "https://covers.openlibrary.org/b/isbn/9780857197689-L.jpg",
     description:
@@ -24,6 +26,7 @@ export const books = [
     title: "Deep Work",
     author: "Cal Newport",
     category: "Productivity",
+    isPremium: false,
     image:
       "https://covers.openlibrary.org/b/isbn/9781455586691-L.jpg",
     description:
@@ -34,6 +37,7 @@ export const books = [
     title: "The 7 Habits of Highly Effective People",
     author: "Stephen Covey",
     category: "Personal Development",
+    isPremium: true,
     image:
       "https://covers.openlibrary.org/b/isbn/9781982137274-L.jpg",
     description:
@@ -44,6 +48,7 @@ export const books = [
     title: "Think and Grow Rich",
     author: "Napoleon Hill",
     category: "Success",
+    isPremium: true,
     image:
       "https://covers.openlibrary.org/b/isbn/9781585424337-L.jpg",
     description:
