@@ -2,11 +2,15 @@ import { Link, useParams } from "react-router-dom";
 import { books } from "./books";
 
 function ReadBook() {
+  
   const { id } = useParams();
 
   const book = books.find(
     (book) => book.id === Number(id)
   );
+
+  const isPremiumUser =
+  localStorage.getItem("premium") === "true";
 
   if (book.isPremium && !isPremiumUser) {
   return (
