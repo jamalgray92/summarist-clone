@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Settings({ user }) {
   const [isPremium, setIsPremium] = useState(
@@ -48,12 +49,12 @@ function Settings({ user }) {
               Cancel Premium
             </button>
           ) : (
-            <a
-              href="/premium"
-              className="settings-button"
-            >
-              Upgrade to Premium
-            </a>
+            <Link
+  to="/premium"
+  className="settings-button"
+>
+  Upgrade to Premium
+</Link>
           )}
         </section>
       </div>

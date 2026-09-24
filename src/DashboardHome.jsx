@@ -1,6 +1,8 @@
 import { books } from "./books";
 import { Link } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+
 
 function DashboardHome({
   user,
@@ -9,6 +11,27 @@ function DashboardHome({
 }) {
   const recommendedRef = useRef(null);
 const suggestedRef = useRef(null);
+
+const [recommendedBooks, setRecommendedBooks] = useState([]);
+const [suggestedBooks, setSuggestedBooks] = useState([]);
+
+useEffect(() => {
+  fetch(
+    "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=recommended"
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      setRecommendedBooks(data);
+    });
+
+  fetch(
+    "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=suggested"
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      setSuggestedBooks(data);
+    });
+}, []);
 
 function scrollCarousel(ref, direction) {
   if (!ref.current) return;
@@ -33,7 +56,7 @@ function scrollCarousel(ref, direction) {
         className="book__link"
       >
         <img
-          src={book.image}
+          src={book.imageLink || book.image}
           alt={book.title}
           className="book__image"
         />
@@ -98,7 +121,7 @@ function scrollCarousel(ref, direction) {
     className="book__carousel"
     ref={recommendedRef}
   >
-    {books.map(renderBook)}
+    {recommendedBooks.map(renderBook)}
   </div>
 </section>
       <section className="dashboard__section">
@@ -130,7 +153,7 @@ function scrollCarousel(ref, direction) {
     className="book__carousel"
     ref={suggestedRef}
   >
-    {[...books].reverse().map(renderBook)}
+  {suggestedBooks.map(renderBook)}
   </div>
 </section>
     </main>

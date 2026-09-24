@@ -55,9 +55,17 @@ if (user) {
             >
               Login
             </li>
-            <li className="nav__list nav__list--mobile">About</li>
-            <li className="nav__list nav__list--mobile">Contact</li>
-            <li className="nav__list nav__list--mobile">Help</li>
+           <li className="nav__list nav__list--mobile">
+  <a href="#about">About</a>
+</li>
+
+<li className="nav__list nav__list--mobile">
+  <a href="#contact">Contact</a>
+</li>
+
+<li className="nav__list nav__list--mobile">
+  <a href="#help">Help</a>
+</li>
           </ul>
         </div>
       </nav>
@@ -445,6 +453,30 @@ if (user) {
     </div>
   </div>
 </section>
+<div id="about" className="footer__info-section">
+  <h3>About Summarist</h3>
+  <p>
+    Summarist helps readers discover the key ideas from great books
+    in less time through concise summaries and audio.
+  </p>
+</div>
+
+<div id="contact" className="footer__info-section">
+  <h3>Contact</h3>
+  <p>
+    Have a question or feedback? Reach out through our support section
+    and we’ll be happy to help.
+  </p>
+</div>
+
+<div id="help" className="footer__info-section">
+  <h3>Help & Support</h3>
+  <p>
+    Need help using Summarist? Browse the app, search for books,
+    manage your library, or contact support for assistance.
+  </p>
+</div>
+
 <section id="footer">
   <div className="container">
     <div className="row">

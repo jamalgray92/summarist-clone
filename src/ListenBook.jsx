@@ -1,12 +1,37 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { books } from "./books";
 
 function ListenBook() {
   const { id } = useParams();
+  const [apiBook, setApiBook] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const book = books.find(
-    (book) => book.id === Number(id)
-  );
+  useEffect(() => {
+  fetch(
+    `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+  setApiBook(data);
+  setLoading(false);
+})
+    .catch((error) => {
+  console.error("Error fetching book:", error);
+  setLoading(false);
+});
+      
+}, [id]);
+
+const localBook = books.find(
+  (book) => String(book.id) === String(id)
+);
+
+const book = apiBook || localBook;`   `
+
+if (loading) {
+  return <div className="page-message">Loading book...</div>;
+}
 
   if (!book) {
     return (
@@ -60,7 +85,7 @@ function ListenBook() {
 
       <div className="listener__card">
         <img
-          src={book.image}
+          src={book.imageLink || book.image}
           alt={book.title}
           className="listener__image"
         />
@@ -75,14 +100,14 @@ function ListenBook() {
           <p>{book.description}</p>
 
           <audio
-            className="listener__audio"
-            controls
+           key={apiBook?.audioLink}
+           className="listener__audio"
+           controls
           >
             <source
-              src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+              src={apiBook?.audioLink}
               type="audio/mpeg"
-            />
-
+          />
             Your browser does not support audio playback.
           </audio>
         </div>

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { books } from "./books";
 
 function Search({
@@ -7,10 +7,35 @@ function Search({
   toggleSavedBook,
 }) {
   const [query, setQuery] = useState("");
+  const [searchParams] = useSearchParams();
+  const [apiBooks, setApiBooks] = useState([]);
 
-  const filteredBooks = books.filter((book) =>
-    book.title.toLowerCase().includes(query.toLowerCase())
-  );
+  useEffect(() => {
+  Promise.all([
+    fetch(
+      "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=recommended"
+    ).then((response) => response.json()),
+
+    fetch(
+      "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=suggested"
+    ).then((response) => response.json()),
+  ])
+    .then(([recommended, suggested]) => {
+      setApiBooks([...recommended, ...suggested]);
+    })
+    .catch((error) => {
+      console.error("Error fetching search books:", error);
+    });
+}, []);
+
+ useEffect(() => {
+  const urlQuery = searchParams.get("q") || "";
+  setQuery(urlQuery);
+}, [searchParams]);
+
+  const filteredBooks = apiBooks.filter((book) =>
+  book.title.toLowerCase().includes(query.toLowerCase())
+);
 
   function isSaved(book) {
     return savedBooks.some(
@@ -40,7 +65,7 @@ function Search({
               className="book__link"
             >
               <img
-                src={book.image}
+                src={book.imageLink || book.image}
                 alt={book.title}
                 className="book__image"
               />
@@ -53,7 +78,7 @@ function Search({
                 <div className="book__premium-badge">
                   Premium
                 </div>
-              )}
+            )}
             </Link>
 
             <button

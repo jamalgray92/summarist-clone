@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { books } from "./books";
 
@@ -8,15 +8,33 @@ function BookDetails({
 }) {
   const { id } = useParams();
 
-  const book = books.find(
-    (book) => book.id === Number(id)
-  );
+ const [apiBook, setApiBook] = useState(null);
+
+const localBook = books.find(
+  (book) => String(book.id) === String(id)
+);
+
+const book = apiBook || localBook;
+
+useEffect(() => {
+  fetch(
+    `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      setApiBook(data);
+    })
+    .catch((error) => {
+      console.error("Error fetching book:", error);
+    });
+}, [id]);
+
 
   const [highlightText, setHighlightText] = useState("");
   const [note, setNote] = useState("");
   const [message, setMessage] = useState("");
 
-  if (!book) {
+ if (!book && !apiBook) {
     return (
       <main className="dashboard__main">
         <h1>Book not found</h1>
@@ -83,7 +101,7 @@ function BookDetails({
       <div className="book-details">
         <div className="book-details__image-wrapper">
           <img
-            src={book.image}
+           src={book.imageLink || book.image}
             alt={book.title}
             className="book-details__image"
           />
@@ -105,7 +123,7 @@ function BookDetails({
           <h3>{book.author}</h3>
 
           <p className="book-details__description">
-            {book.description}
+            {book.bookDescription || book.description}
           </p>
 
           <button
@@ -152,41 +170,7 @@ function BookDetails({
             </div>
           )}
 
-          <div className="highlight-form">
-            <h2>Add Highlight</h2>
-
-            <textarea
-              className="highlight-form__textarea"
-              placeholder="Enter a quote or highlight..."
-              value={highlightText}
-              onChange={(event) =>
-                setHighlightText(event.target.value)
-              }
-            />
-
-            <textarea
-              className="highlight-form__textarea"
-              placeholder="Add an optional note..."
-              value={note}
-              onChange={(event) =>
-                setNote(event.target.value)
-              }
-            />
-
-            <button
-              className="book__save"
-              type="button"
-              onClick={saveHighlight}
-            >
-              Save Highlight
-            </button>
-
-            {message && (
-              <p className="highlight-form__message">
-                {message}
-              </p>
-            )}
-          </div>
+          
         </div>
       </div>
     </main>

@@ -611,7 +611,11 @@ button:disabled {
   display: flex;
   background: #f7f7f7;
 }
-
+.dashboard__content {
+  flex: 1;
+  min-width: 0;
+  margin-left: 240px;
+}
 .sidebar {
   width: 240px;
   min-height: 100vh;
@@ -790,7 +794,7 @@ button:disabled {
 }
 
 .book-details__image-wrapper {
-  width: 280px;
+  width: 220px;
   flex-shrink: 0;
 }
 
@@ -829,7 +833,7 @@ button:disabled {
   font-weight: 600;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .book-details {
     flex-direction: column;
   }
@@ -925,21 +929,21 @@ button:disabled {
   display: none;
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -260px;
-    width: 240px;
-    height: 100vh;
-    z-index: 1000;
-    transition: left 0.3s ease;
-    justify-content: space-between;
-  }
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  z-index: 1000;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  justify-content: space-between;
+}
 
-  .sidebar--open {
-    left: 0;
-  }
+ .sidebar--open {
+  transform: translateX(0);
+}
 
   .sidebar__menu-button {
     display: block;
@@ -957,10 +961,10 @@ button:disabled {
     cursor: pointer;
   }
 
-  .dashboard__content {
-    width: 100%;
-    min-width: 0;
-  }
+ .dashboard__content {
+  margin-left: 0;
+  width: 100%;
+}
 
   .dashboard__main {
     width: 100%;
@@ -970,7 +974,7 @@ button:disabled {
   .book__grid {
     grid-template-columns: 1fr;
   }
-}
+
 @media (max-width: 768px) {
   .dashboard__section {
     padding: 18px;
@@ -1602,4 +1606,40 @@ button:disabled {
   .settings-row {
     flex-direction: column;
   }
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.footer__info-section {
+  min-height: 360px;
+  padding: 80px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  scroll-margin-top: 20px;
+}
+
+.footer__info-section h3 {
+  margin-bottom: 16px;
+}
+
+.footer__info-section p {
+  max-width: 700px;
+  line-height: 1.6;
+}
+.landing__content__title {
+  line-height: 1.15;
+}
+
+.book-details__info h1,
+.listener__info h1 {
+  line-height: 1.2;
+  margin-bottom: 12px;
+  overflow-wrap: break-word;
 }

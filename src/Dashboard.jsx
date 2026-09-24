@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import Sidebar from "./Sidebar";
 import DashboardHome from "./DashboardHome";
 import Library from "./Library";
@@ -12,6 +17,16 @@ import Premium from "./Premium";
 import Settings from "./Settings";
 import PaymentSuccess from "./PaymentSuccess";
 function Dashboard({ user, onLogout }) {
+  const navigate = useNavigate();
+const [topSearch, setTopSearch] = useState("");
+
+function handleTopSearch(event) {
+  event.preventDefault();
+
+  if (!topSearch.trim()) return;
+
+  navigate(`/search?q=${encodeURIComponent(topSearch.trim())}`);
+}
     const [savedBooks, setSavedBooks] = useState(() => {
         const storedBooks = localStorage.getItem("savedBooks");
 
@@ -41,7 +56,23 @@ function Dashboard({ user, onLogout }) {
             <Sidebar onLogout={onLogout} />
 
             <div className="dashboard__content">
-                <Routes>
+              <form
+  className="dashboard-search"
+  onSubmit={handleTopSearch}
+>
+  <input
+    type="text"
+    placeholder="Search for books"
+    value={topSearch}
+    onChange={(event) => setTopSearch(event.target.value)}
+  />
+
+  <button type="submit">
+    Search
+  </button>
+</form>
+
+<Routes>
   <Route
     path="/for-you"
     element={

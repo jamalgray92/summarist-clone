@@ -6,8 +6,8 @@ function ReadBook() {
   const { id } = useParams();
 
   const book = books.find(
-    (book) => book.id === Number(id)
-  );
+  (book) => String(book.id) === String(id)
+);
 
   const isPremiumUser =
   localStorage.getItem("premium") === "true";
