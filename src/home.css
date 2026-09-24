@@ -1428,9 +1428,10 @@ button:disabled {
 /* ===== For You design polish ===== */
 
 .dashboard__main {
-  max-width: 1070px;
-  margin: 0 auto;
-  padding: 40px 32px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 40px 48px;
 }
 
 .dashboard__main > h1 {
@@ -1642,4 +1643,109 @@ button:disabled {
   line-height: 1.2;
   margin-bottom: 12px;
   overflow-wrap: break-word;
+}
+/* ===== Sidebar responsive fix ===== */
+
+@media (min-width: 769px) {
+  .sidebar {
+    width: 220px;
+    transform: translateX(0);
+  }
+
+  .sidebar__menu-button {
+    display: none;
+  }
+
+  .dashboard__content {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+    transform: translateX(-100%);
+  }
+
+  .sidebar--open {
+    transform: translateX(0);
+  }
+
+  .sidebar__menu-button {
+    display: block;
+  }
+
+  .dashboard__content {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+/* ===== Book title readability ===== */
+
+.book__card h3,
+.book-details__info h1,
+.listener__info h1 {
+  color: #032b41;
+  font-weight: 700;
+}
+/* ===== Mobile sidebar content spacing ===== */
+
+@media (max-width: 768px) {
+  .dashboard__content {
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar--open ~ .dashboard__content {
+    transform: translateX(240px);
+  }
+}
+/* ===== Top search bar polish ===== */
+
+.dashboard-search {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 32px 0;
+}
+
+.dashboard-search input {
+  width: 100%;
+  max-width: 520px;
+  height: 48px;
+  padding: 0 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 24px;
+  background: white;
+  font-size: 16px;
+  color: #032b41;
+  outline: none;
+}
+
+.dashboard-search input:focus {
+  border-color: #2bd97f;
+}
+
+.dashboard-search button {
+  height: 48px;
+  padding: 0 22px;
+  border-radius: 24px;
+  background: #032b41;
+  color: white;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .dashboard-search {
+    padding: 16px 16px 0 70px;
+  }
+
+  .dashboard-search input {
+    min-width: 0;
+  }
+
+  .dashboard-search button {
+    padding: 0 16px;
+  }
 }

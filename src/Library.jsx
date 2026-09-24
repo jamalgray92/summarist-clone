@@ -22,7 +22,7 @@ function Library({
                 className="book__link"
               >
                 <img
-                  src={book.image}
+                  src={book.imageLink || book.image}
                   alt={book.title}
                   className="book__image"
                 />
