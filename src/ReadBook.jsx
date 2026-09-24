@@ -1,15 +1,48 @@
 import { Link, useParams } from "react-router-dom";
 import { books } from "./books";
+import { useEffect, useState } from "react";
 
 function ReadBook() {
   
   const { id } = useParams();
 
-  const book = books.find(
+  const [apiBook, setApiBook] = useState(null);
+  const [loading, setLoading] = useState(true); 
+useEffect(() => {
+  fetch(
+    `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      setApiBook(data);
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.error("Error fetching book:", error);
+      setLoading(false);
+    });
+}, [id]);
+
+  const localBook = books.find(
   (book) => String(book.id) === String(id)
 );
 
-  const isPremiumUser =
+const book = apiBook || localBook;
+
+if (loading) {
+  return <div className="page-message">Loading book...</div>;
+}
+
+  if (!book) {
+    return (
+      <main className="dashboard__main">
+        <h1>Book not found</h1>
+        <Link to="/for-you">Back to For You</Link>
+      </main>
+    );
+  }
+
+ const isPremiumUser =
   localStorage.getItem("premium") === "true";
 
   if (book.isPremium && !isPremiumUser) {
@@ -24,16 +57,6 @@ function ReadBook() {
     </main>
   );
 }
-
-  if (!book) {
-    return (
-      <main className="dashboard__main">
-        <h1>Book not found</h1>
-        <Link to="/for-you">Back to For You</Link>
-      </main>
-    );
-  }
-
   return (
     <main className="reader">
       <div className="reader__topbar">
@@ -78,7 +101,7 @@ function ReadBook() {
         <p>
           The ideas in this book are useful because they give
           readers a practical framework for thinking about
-          {` ${book.category.toLowerCase()}`} and personal growth.
+         {` ${(book.category || "personal development").toLowerCase()}`} and personal growth.
           Small changes in thinking and behavior can compound
           over time into meaningful results.
         </p>
